@@ -19,36 +19,71 @@ export function generateLoopbackHTML(sessionData: any, port?: string): string {
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: #0a0a0a;
+      color: #ffffff;
     }
     .container {
       text-align: center;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 3rem 2rem;
+      background: #111111;
+      border-radius: 12px;
+      border: 1px solid #222222;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      width: 90%;
     }
-    h1 { margin: 0 0 1rem 0; font-size: 2rem; }
-    p { margin: 0.5rem 0; opacity: 0.9; }
-    .status { margin-top: 1rem; font-size: 0.9rem; opacity: 0.7; }
-    .success { color: #4ade80; }
+    .logo {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1.5rem;
+      background: #7c3aed;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    h1 { 
+      margin: 0 0 0.5rem 0; 
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    p { 
+      margin: 0.5rem 0; 
+      color: #888888;
+      font-size: 0.95rem;
+    }
+    .status { 
+      margin-top: 1.5rem; 
+      padding: 1rem;
+      background: #1a1a1a;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #aaaaaa;
+    }
+    .success { 
+      color: #22c55e;
+      font-weight: 500;
+    }
     .code {
-      background: rgba(0, 0, 0, 0.2);
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 8px;
       margin-top: 1rem;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
+      font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+      font-size: 0.8rem;
       word-break: break-all;
+      color: #7c3aed;
+      border: 1px solid #222222;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>✓ Authentication Successful</h1>
-    <p>You have been successfully signed in.</p>
+    <div class="logo">✓</div>
+    <h1>Authentication Successful</h1>
+    <p>You have been successfully signed in with Whop.</p>
     <p class="status" id="status">Initializing...</p>
     ${port ? '' : '<div class="code" id="token"></div>'}
   </div>
