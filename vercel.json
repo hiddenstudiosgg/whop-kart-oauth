@@ -1,0 +1,11 @@
+{
+  "buildCommand": null,
+  "outputDirectory": null,
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
+

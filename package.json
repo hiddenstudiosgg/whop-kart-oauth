@@ -1,0 +1,32 @@
+{
+  "name": "whop-kart-oauth",
+  "version": "1.0.0",
+  "description": "Whop OAuth backend for Unity - serverless on Vercel",
+  "main": "index.js",
+  "scripts": {
+    "typecheck": "tsc -p . --noEmit"
+  },
+  "keywords": [
+    "whop",
+    "oauth",
+    "unity",
+    "vercel"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@whop/api": "^0.0.51",
+    "cookie": "^1.0.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.6.1",
+    "@vercel/node": "^5.3.24",
+    "typescript": "^5.9.3",
+    "vercel": "^48.1.6"
+  }
+}
