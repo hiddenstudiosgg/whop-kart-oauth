@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { parse, serialize } from 'cookie';
-import { exchangeCodeForTokens, getMe } from '../../src/lib/whop';
-import { issueSessionJWT } from '../../src/lib/session';
-import { jsonError, jsonOK } from '../../src/lib/http';
-import { generateLoopbackHTML } from '../../src/lib/html';
+import { exchangeCodeForTokens, getMe } from '../../src/lib/whop.js';
+import { issueSessionJWT } from '../../src/lib/session.js';
+import { jsonError, jsonOK } from '../../src/lib/http.js';
+import { generateLoopbackHTML } from '../../src/lib/html.js';
 
 /**
  * GET /api/oauth/callback?code=...&state=...

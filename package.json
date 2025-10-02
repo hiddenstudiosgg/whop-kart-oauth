@@ -1,6 +1,7 @@
 {
   "name": "whop-kart-oauth",
   "version": "1.0.0",
+  "type": "module",
   "description": "Whop OAuth backend for Unity - serverless on Vercel",
   "main": "index.js",
   "scripts": {

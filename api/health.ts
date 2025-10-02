@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { jsonOK } from '../src/lib/http';
+import { jsonOK } from '../src/lib/http.js';
 
 /**
  * GET /api/health

@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { verifySessionJWT } from '../src/lib/session';
-import { jsonError, jsonOK, extractBearerToken } from '../src/lib/http';
-import { applyCors, handleCorsPreFlight } from '../src/lib/cors';
+import { verifySessionJWT } from '../src/lib/session.js';
+import { jsonError, jsonOK, extractBearerToken } from '../src/lib/http.js';
+import { applyCors, handleCorsPreFlight } from '../src/lib/cors.js';
 
 /**
  * GET /api/me

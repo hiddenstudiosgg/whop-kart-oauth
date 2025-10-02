@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { serialize } from 'cookie';
 import crypto from 'crypto';
-import { getAuthorizationUrl } from '../../src/lib/whop';
-import { jsonError } from '../../src/lib/http';
+import { getAuthorizationUrl } from '../../src/lib/whop.js';
+import { jsonError } from '../../src/lib/http.js';
 
 /**
  * GET /api/oauth/init
