@@ -14,6 +14,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Capture loopback parameters from query
+    const mode = req.query.mode as string | undefined;
+    const port = req.query.port as string | undefined;
+    
+    console.log('📥 Loopback params:', { mode, port });
+    
     // Generate our own CSRF state
     const ourState = crypto.randomBytes(16).toString('hex');
     
@@ -30,18 +36,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
     
     // Set HttpOnly cookie with our state for CSRF protection
-    const cookie = serialize('w_state', ourState, {
-      httpOnly: true,
-      secure: false, // Allow in local HTTP
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 600, // 10 minutes
-    });
+    const cookies = [
+      serialize('w_state', ourState, {
+        httpOnly: true,
+        secure: false, // Allow in local HTTP
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 600, // 10 minutes
+      })
+    ];
+    
+    // Store loopback params in cookies if provided
+    if (mode) {
+      cookies.push(serialize('w_mode', mode, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 600,
+      }));
+    }
+    
+    if (port) {
+      cookies.push(serialize('w_port', port, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 600,
+      }));
+    }
     
     console.log('🔐 Setting CSRF state cookie:', ourState);
     console.log('📍 Redirecting to:', finalUrl);
     
-    res.setHeader('Set-Cookie', cookie);
+    res.setHeader('Set-Cookie', cookies);
     res.setHeader('Location', finalUrl);
     return res.status(302).end();
   } catch (error: any) {

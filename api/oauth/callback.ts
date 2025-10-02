@@ -92,17 +92,49 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     };
 
-    // Check if loopback mode is requested
-    const mode = req.query.mode as string | undefined;
-    const port = req.query.port as string | undefined;
+    // Check if loopback mode is requested (from query params OR cookies)
+    let mode = req.query.mode as string | undefined;
+    let port = req.query.port as string | undefined;
+    
+    // If not in query params, check cookies (from init)
+    if (!mode) {
+      mode = cookies.w_mode;
+    }
+    if (!port) {
+      port = cookies.w_port;
+    }
+    
+    console.log('🔍 Loopback check:', { mode, port });
 
     if (mode === 'loopback' && port) {
+      console.log('🔄 Returning loopback HTML for Unity');
+      // Clear all cookies
+      const clearCookies = [
+        clearCookie,
+        serialize('w_mode', '', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+          maxAge: 0,
+        }),
+        serialize('w_port', '', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+          maxAge: 0,
+        }),
+      ];
+      res.setHeader('Set-Cookie', clearCookies);
+      
       // Return HTML page that POSTs to Unity's local listener
       res.setHeader('Content-Type', 'text/html');
       return res.status(200).send(generateLoopbackHTML(responseData, port));
     }
 
     // Default: return JSON response
+    console.log('📄 Returning JSON response');
     return jsonOK(res, responseData);
   } catch (error: any) {
     console.error('OAuth callback error:', error);
