@@ -90,3 +90,48 @@ export async function getMe(accessToken: string) {
   };
 }
 
+/**
+ * Check if a user has access to a specific Whop experience
+ * This is used to gate premium content, game modes, or features in Unity
+ * 
+ * @param userId - The Whop user ID (from session JWT)
+ * @param experienceId - The Whop experience ID to check access for
+ * @returns Object with hasAccess boolean and accessLevel string
+ */
+export async function checkExperienceAccess(
+  userId: string,
+  experienceId: string
+): Promise<{ hasAccess: boolean; accessLevel: string }> {
+  console.log('🔍 Checking experience access:', { userId, experienceId });
+
+  try {
+    const result = await whopSdk.access.checkIfUserHasAccessToExperience({
+      experienceId,
+      userId,
+    });
+
+    // Check if the SDK returned an error
+    if (result._error) {
+      console.error('❌ Whop access check error:', result._error);
+      throw new Error(`Whop access check failed: ${result._error.message || 'Unknown error'}`);
+    }
+
+    const { hasAccess, accessLevel } = result;
+
+    console.log('✅ Access check result:', {
+      userId,
+      experienceId,
+      hasAccess,
+      accessLevel: accessLevel ?? 'no_access',
+    });
+
+    return {
+      hasAccess: hasAccess ?? false,
+      accessLevel: accessLevel ?? 'no_access',
+    };
+  } catch (error: any) {
+    console.error('❌ Error checking experience access:', error);
+    throw new Error(`Failed to check experience access: ${error.message || 'Unknown error'}`);
+  }
+}
+
